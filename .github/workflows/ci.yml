@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build-and-test:
+    name: Build and Test (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-latest ]
+        # Windows support will be added once MSVC runner configuration
+        # is verified and the dependency stack is validated.
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install system dependencies (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y \
+            cmake ninja-build \
+            libgl1-mesa-dev \
+            libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev \
+            libwayland-dev libxkbcommon-dev \
+            python3 python3-pip
+
+      - name: Configure (CI preset)
+        run: cmake --preset ci
+
+      - name: Build all targets
+        run: cmake --build build/ci --parallel
+
+      - name: Run tests
+        run: ctest --test-dir build/ci --output-on-failure
+
+      - name: Run benchmark (headless smoke test)
+        run: ./build/ci/bin/PhysicsEngineBenchmarks

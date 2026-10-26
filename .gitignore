@@ -1,0 +1,74 @@
+# Build directories
+build/
+out/
+cmake-build-*/
+_build/
+.build/
+
+# CMake generated
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake
+compile_commands.json
+*.cmake
+!CMakeLists.txt
+!CMakePresets.json
+
+# IDEs
+.vs/
+.vscode/settings.json
+.vscode/launch.json
+.vscode/tasks.json
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.sln
+*.suo
+*.user
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Binaries
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+*.pdb
+*.ilk
+*.exp
+
+# Clang tools
+.clang-tidy.cache
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Profiler output
+*.perf
+*.prof
+gmon.out
+
+# Generated GLAD source (if pre-generated, you may want to track it)
+# external/glad/src/gl.c  — uncomment to exclude
+
+# Test coverage
+*.gcda
+*.gcno
+coverage.xml
+lcov.info
+
+# Benchmark output
+benchmark_results*.json
+benchmark_results*.csv
